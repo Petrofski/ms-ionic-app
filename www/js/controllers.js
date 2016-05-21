@@ -76,9 +76,12 @@ angular.module('starter.controllers', [])
             TokenService.set('lastVasDate', vasMessage.datetime);
             TokenService.set('lastVasScore', vasMessage.vasScore);
 
-            VasService.postVasMessage(vasMessage).then(function(){
+            VasService.postVasMessage(vasMessage).then(function successCallback(){
+              console.log("Success callback");
               $scope.lastVasExists = true;
               $scope.lastVas = vasMessage;
+            }, function errorCallback(){
+              console.log("Errororororoeoeroro")
             });
 
           },
