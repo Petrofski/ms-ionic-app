@@ -1,0 +1,16 @@
+<ion-modal-view>
+	<ion-header-bar>
+	  	<h1 class="title">Medication</h1>
+        <div class="button" style="background-color: white;" ng-click="closeMedication()"><span class="icon ion-close"></span></div>
+	</ion-header-bar>
+  	<ion-content>
+  		<ion-list>
+		  <ion-item ng-repeat="med in medication">
+		    <p><b>{{ med.name }}</b>, Since: {{ med.date | date : "dd/MM/yyyy" }}</p>
+		  </ion-item>
+		</ion-list>
+		<div class="button-medication">
+  			<button class="button button-full button-positive" ng-click="addMedication()">Add medication</button>
+  		</div>
+  	</ion-content>
+</ion-modal-view>

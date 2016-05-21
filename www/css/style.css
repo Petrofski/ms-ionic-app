@@ -11,5 +11,11 @@
 }
 
 .button-logout {
-	margin: 10 10;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.button-medication {
+	margin-left: 10px;
+	margin-right: 10px;
 }
