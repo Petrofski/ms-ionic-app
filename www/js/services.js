@@ -7,8 +7,11 @@ angular.module('starter.services', [])
 
   return {
     postVasMessage: function(vasMessage) {
-      console.log(vasMessage);
-      $http.post( api + "Patients/" + TokenService.get('user-id') + "/mobileData?access_token=" + TokenService.get('user-token') , vasMessage)
+      var id = TokenService.get('user-id');
+      var token = TokenService.get('user-token');
+      var route = api + "Patients/" + id + "/mobileData?access_token=" + token;
+      console.log(route);
+      return $http.post( route , vasMessage)
         .success(function(data, success){
           console.log(data);
           console.log("Successfully posted vasMessage");

@@ -1,12 +1,24 @@
 <ion-view view-title="Vas">
     <ion-content class="padding">
-      <p>How do you experience your pain level at this moment?</p>
-      <div class="button-bar bar-assertive">
-        <a class="button" ng-click="postVas(1)">1</a>
-        <a class="button" ng-click="postVas(2)">2</a>
-        <a class="button" ng-click="postVas(3)">3</a>
-        <a class="button" ng-click="postVas(4)">4</a>
-        <a class="button" ng-click="postVas(5)">5</a>
+      <div >
+        <p>How do you experience your pain level at this moment?</p>
+        <div class="button-bar bar-assertive">
+          <a class="button" ng-click="postVas(1)" ng-class="{'disabled': lastVasExpired }">1</a>
+          <a class="button" ng-click="postVas(2)" ng-class="{'disabled': lastVasExpired }">2</a>
+          <a class="button" ng-click="postVas(3)" ng-class="{'disabled': lastVasExpired }">3</a>
+          <a class="button" ng-click="postVas(4)" ng-class="{'disabled': lastVasExpired }">4</a>
+          <a class="button" ng-click="postVas(5)" ng-class="{'disabled': lastVasExpired }">5</a>
+        </div>
       </div>
+      <div class="list card" ng-show="lastVasExists">
+        <div class="item item-image">
+          SMILEY FACE
+          {{lastVasScore}}
+        </div>
+        <div class="item item-body">
+          <p>Last VAS timestamp: {{ lastVasDate | date:'yyyy-MM-dd HH:mm:ss Z' }}</p>
+        </div>
+      </div>
+
     </ion-content>
 </ion-view>
