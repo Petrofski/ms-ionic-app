@@ -134,7 +134,7 @@ angular.module('starter.controllers', [])
 		$scope.new = {}
 
 		var medicationPopup = $ionicPopup.show({
-		    template: '<input type="text" ng-model="new.name"><input type="date" ng-model="new.date"></input>',
+		    template: '<input type="text" placeholder="name" ng-model="new.name"><input type="date" placeholder="date" ng-model="new.date"></input>',
 		    title: 'Enter new medication',
 		    subTitle: 'Enter name and date',
 		    scope: $scope,
@@ -167,7 +167,7 @@ angular.module('starter.controllers', [])
 		$scope.new = {}
 
 		var rmiPopup = $ionicPopup.show({
-		    template: '<input type="text" ng-model="new.info"><input type="date" ng-model="new.date"></input>',
+		    template: '<input type="text" placeholder="info" ng-model="new.info"><input type="date" placeholder="date" ng-model="new.date"></input>',
 		    title: 'Enter new Rmi',
 		    subTitle: 'Enter date and info',
 		    scope: $scope,
