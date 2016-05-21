@@ -1,9 +1,35 @@
 <ion-view view-title="Account">
   <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    </ion-list>
+
+    <div class="list card">
+	  <div class="item item-avatar">
+	    <img src="img/mike.png">
+	    <h2>Sam Hendrickx</h2>
+	    <p>32, Male</p>
+	  </div>
+
+	  <div class="item item-body">
+	    <p>Caucasian: <b>European</b></p>
+	    <p>First Complaints: <b>19/03/2012</b></p>
+	    <p>Diagnosis Date: <b>25/04/2013</b></p>
+	  </div>
+	</div>
+
+	<div class="list">
+	  <a class="item item-icon-left item-icon-right">
+	    <i class="icon ion-mouse"></i>
+	    Medication
+	    <i class="icon ion-ios-arrow-right"></i>
+	  </a>
+
+	  <a class="item item-icon-left item-icon-right">
+	    <i class="icon ion-medkit"></i>
+	    MRI
+	    <i class="icon ion-ios-arrow-right"></i>
+	  </a>
+	</div>
+
+	<button class="button button-block button-assertive button-logout" ng-click="logout()">Log out</button>
+
   </ion-content>
 </ion-view>

@@ -1,1 +1,15 @@
 /* Empty. Add your own CSS if you like */
+
+
+.profile-top {
+	margin: 10px;
+}
+
+.profile-top i {
+	font-size: 10em;
+	text-align: center;
+}
+
+.button-logout {
+	margin: 10 10;
+}

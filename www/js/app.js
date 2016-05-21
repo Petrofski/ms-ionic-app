@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, TokenService, $state) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -15,12 +15,53 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
 
+      var first = new Date();
+      first.setHours(8);
+      first.setMinutes(0);
+      first.setSeconds(0);
+
+      var second = new Date();
+      second.setHours(13);
+      second.setMinutes(0);
+      second.setSeconds(0);
+
+      var third = new Date();
+      third.setHours(18);
+      third.setMinutes(0);
+      third.setSeconds(0);
+
+      // 3 Daily Notifications
+      window.plugin.notification.local.add({
+          id:      1,
+          title:   'Sensing MS',
+          message: 'Enter your daily score please',
+          repeat:  'daily',
+          date:    first
+      });
+
+      window.plugin.notification.local.add({
+          id:      2,
+          title:   'Sensing MS',
+          message: 'Enter your daily score please',
+          repeat:  'daily',
+          date:    second
+      });
+
+      window.plugin.notification.local.add({
+          id:      3,
+          title:   'Sensing MS',
+          message: 'Enter your daily score please',
+          repeat:  'daily',
+          date:    third
+      });
+
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
   });
+
 })
 
 .value("api", "http://sensing-ms-api.mybluemix.net/api/")
@@ -83,23 +124,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 
-  /*$httpProvider.interceptors.push(['$q', '$location', '$localStorage', function ($q, $location, $localStorage) {
-        return {
-            'request': function (config) {
-                config.headers = config.headers || {};
-​
-                if ($localStorage.token) {
-                    config.headers['x-access-token'] = $localStorage.token;
-                }
-                return config;
-            },
-            'responseError': function (response) {
-                if (response.status === 401 || response.status === 403) {
-                    $location.path('/');
-                }
-                return $q.reject(response);
-            }
-        };
-    }]);*/
+
 
 });

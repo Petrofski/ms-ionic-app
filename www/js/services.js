@@ -47,6 +47,7 @@ angular.module('starter.services', [])
 .factory('TokenService', function($window) {
   return {
     get: function(key) { return $window.localStorage[key]; },
-    set: function(key, value) { $window.localStorage[key] = value; }
+    set: function(key, value) { $window.localStorage[key] = value; },
+    remove: function(key) { $window.localStorage.removeItem(key); }
   };
 });
