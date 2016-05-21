@@ -79,6 +79,25 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/login');
+
+  /*$httpProvider.interceptors.push(['$q', '$location', '$localStorage', function ($q, $location, $localStorage) {
+        return {
+            'request': function (config) {
+                config.headers = config.headers || {};
+​
+                if ($localStorage.token) {
+                    config.headers['x-access-token'] = $localStorage.token;
+                }
+                return config;
+            },
+            'responseError': function (response) {
+                if (response.status === 401 || response.status === 403) {
+                    $location.path('/');
+                }
+                return $q.reject(response);
+            }
+        };
+    }]);*/
 
 });
