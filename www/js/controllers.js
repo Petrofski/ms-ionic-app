@@ -31,29 +31,25 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('VasCtrl', function($scope, VasService, TokenService, $state) {
+.controller('VasCtrl', function($scope, VasService, TokenService, $state, $timeout) {
 
   var posOptions = {timeout: 10000, enableHighAccuracy: false};
+  var DISABLE_TIMER = 10;
 
   var lastVasDate = TokenService.get('lastVasDate');
   $scope.lastVasDate = Number(lastVasDate);
   var lastVasScore = TokenService.get('lastVasScore');
   $scope.lastVasScore = lastVasScore;
 
-  var countdown = Math.floor(Date.now() / 1000 ) - 15;
-  console.log(Number(lastVasDate) - countdown);
-  console.log(countdown);
-
+  var countdown = Math.floor(Date.now() / 1000 ) - DISABLE_TIMER;
   $scope.countdown = countdown;
 
-  $scope.lastVasExpired = function(){
-    if(lastVasDate == undefined) {
-      return false;
-    } else if ( Number(lastVasDate) > countdown ) {
-      return true;
-    } else {
-      return false;
-    }
+  if(lastVasDate == undefined) {
+    $scope.lastVasExpired = false;
+  } else if ( Number(lastVasDate) > countdown ) {
+    $scope.lastVasExpired = true;
+  } else {
+    $scope.lastVasExpired = false;
   }
 
   $scope.lastVasExists = function(){ if(lastVasDate != undefined) return true;}
@@ -62,8 +58,6 @@ angular.module('starter.controllers', [])
       $scope.lastVasExpired = function(){return true};
       navigator.geolocation.getCurrentPosition(
           function(position) {
-            console.log("Position: ", position)
-
 
             var vasMessage = {  vasScore: score,
                                 datetime: Math.floor(position.timestamp / 1000),
@@ -77,9 +71,9 @@ angular.module('starter.controllers', [])
             TokenService.set('lastVasScore', vasMessage.vasScore);
 
             VasService.postVasMessage(vasMessage).then(function successCallback(){
-              console.log("Success callback");
               $scope.lastVasExists = true;
               $scope.lastVas = vasMessage;
+              $timeout(function(){ $scope.lastVasExpired = false}, DISABLE_TIMER);
             }, function errorCallback(){
               console.log("Errororororoeoeroro")
             });
