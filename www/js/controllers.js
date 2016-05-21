@@ -1,6 +1,12 @@
 angular.module('starter.controllers', [])
 
 .controller('LoginCtrl', function($scope, $state, LoginService, TokenService){
+
+	var token = TokenService.get('user-token');
+	if(token && token.length > 0) {
+		$state.go('tab.vas');
+	}
+
 	$scope.login = function(credentials) {
 		var user = {
 			"username": credentials.username,
@@ -21,7 +27,9 @@ angular.module('starter.controllers', [])
 	}
 })
 
-.controller('DashCtrl', function($scope) {})
+.controller('DashCtrl', function($scope) {
+
+})
 
 .controller('VasCtrl', function($scope, VasService, TokenService) {
 
@@ -52,6 +60,10 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('AccountCtrl', function($scope) {
-
+.controller('AccountCtrl', function($scope, $state, TokenService) {
+	$scope.logout = function() {
+		TokenService.remove('user-id');
+		TokenService.remove('user-token');
+		$state.go('login');
+	}
 });
