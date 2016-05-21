@@ -36,23 +36,27 @@ angular.module('starter.controllers', [])
   var posOptions = {timeout: 10000, enableHighAccuracy: false};
   var DISABLE_TIMER = 10;
 
-  var lastVasDate = TokenService.get('lastVasDate');
-  $scope.lastVasDate = Number(lastVasDate);
-  var lastVasScore = TokenService.get('lastVasScore');
-  $scope.lastVasScore = lastVasScore;
+  $scope.$on('$ionicView.enter', function () {
+    console.log("Checking VAS vars ");
+    var lastVasDate = TokenService.get('lastVasDate');
+    $scope.lastVasDate = Number(lastVasDate);
+    var lastVasScore = TokenService.get('lastVasScore');
+    $scope.lastVasScore = lastVasScore;
 
-  var countdown = Math.floor(Date.now() / 1000 ) - DISABLE_TIMER;
-  $scope.countdown = countdown;
+    var countdown = Math.floor(Date.now() / 1000 ) - DISABLE_TIMER;
+    $scope.countdown = countdown;
 
-  if(lastVasDate == undefined) {
-    $scope.lastVasExpired = false;
-  } else if ( Number(lastVasDate) > countdown ) {
-    $scope.lastVasExpired = true;
-  } else {
-    $scope.lastVasExpired = false;
-  }
+    if(lastVasDate == undefined) {
+      $scope.lastVasExpired = false;
+    } else if ( Number(lastVasDate) > countdown ) {
+      $scope.lastVasExpired = true;
+    } else {
+      $scope.lastVasExpired = false;
+    }
 
-  $scope.lastVasExists = function(){ if(lastVasDate != undefined) return true;}
+    $scope.lastVasExists = function(){ if(lastVasDate != undefined) return true;}
+  });
+
 
   $scope.postVas = function(score) {
       $scope.lastVasExpired = function(){return true};
@@ -72,8 +76,9 @@ angular.module('starter.controllers', [])
 
             VasService.postVasMessage(vasMessage).then(function successCallback(){
               $scope.lastVasExists = true;
-              $scope.lastVas = vasMessage;
-              $timeout(function(){ $scope.lastVasExpired = false}, DISABLE_TIMER);
+              $scope.lastVasScore = vasMessage.vasScore;
+              $scope.lastVasDate = vasMessage.datetime;
+              $timeout(function(){ $scope.lastVasExpired = false}, DISABLE_TIMER * 1000);
             }, function errorCallback(){
               console.log("Errororororoeoeroro")
             });
