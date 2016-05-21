@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.factory('VasService', function($http, api) {
+.factory('VasService', function($http, api, TokenService) {
   // Might use a resource here that returns a JSON array
 
 
@@ -8,13 +8,15 @@ angular.module('starter.services', [])
   return {
     postVasMessage: function(vasMessage) {
       console.log(vasMessage);
-      $http.post( api + "/", vasMessage)
+      $http.post( api + "/Patients/" + TokenService.get('user-id') + "/mobileData?access_token=" + TokenService.get('user-token') , vasMessage)
         .success(function(data, success){
+          console.log(data);
           console.log("Successfully posted vasMessage");
         })
     }
   };
 })
+
 
 .factory('LoginService', function($http, TokenService) {
   return {

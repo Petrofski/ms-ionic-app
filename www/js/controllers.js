@@ -23,26 +23,30 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('VasCtrl', function($scope, VasService, $cordovaGeolocation, $localStorage) {
+.controller('VasCtrl', function($scope, VasService, TokenService) {
 
   var posOptions = {timeout: 10000, enableHighAccuracy: false};
 
   $scope.postVas = function(score) {
 
-    $cordovaGeolocation.getCurrentPosition(posOptions)
-      .then(function (position) {
-        var lat = position.coords.latitude
-        var long = position.coords.longitude
-        console.log(lat + ' ' + long )
+      navigator.geolocation.getCurrentPosition(
+          function(position) {
+            console.log("Position: ", position)
 
-        var vasMessage = {  pain: score,
-                            datetime: function(){ return Math.floor(Date.now() / 1000 )},
-                            id: $localStorage.id
-        }
+            var vasMessage = {  vasScore: score,
+                                datetime: position.timestamp,
+                                geopoint: {
+                                    lat: position.coords.latitude,
+                                    lng: position.coords.longitude
+                                }
+            }
+            console.log(vasMessage);
+            VasService.postVasMessage(vasMessage);
 
-        VasService.postVasMessage(vasMessage);
+          },
+          function(error) {console.log("error location")},
+          {enableHighAccuracy: false})
 
-      })
   }
 
 })
