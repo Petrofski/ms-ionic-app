@@ -68,12 +68,12 @@ angular.module('starter.controllers', [])
       $scope.lastVasExpired = false;
     }
 
-    $scope.lastVasExists = function(){ if(lastVasDate != undefined) return true;}
+    $scope.lastVasExpired = function(){ if(lastVasDate != undefined) return true;}
   });
 
 
   $scope.postVas = function(score) {
-      $scope.lastVasExpired = function(){return true};
+      $scope.lastVasExpired = true;
       navigator.geolocation.getCurrentPosition(
           function(position) {
 
