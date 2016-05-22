@@ -94,7 +94,7 @@ angular.module('starter.controllers', [])
               $scope.lastVasDate = vasMessage.datetime;
               $timeout(function(){ $scope.lastVasExpired = false}, DISABLE_TIMER * 1000);
             }, function errorCallback(){
-              console.log("Errororororoeoeroro")
+              console.log("Error")
             });
 
           },
