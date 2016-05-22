@@ -48,7 +48,7 @@ angular.module('starter.controllers', [])
 .controller('VasCtrl', function($scope, VasService, TokenService, $state, $timeout, $ionicPopup) {
 
   var posOptions = {timeout: 10000, enableHighAccuracy: false};
-  var DISABLE_TIMER = 10;
+  var DISABLE_TIMER = 5;
 
   $scope.$on('$ionicView.enter', function () {
     console.log("Checking VAS vars ");
