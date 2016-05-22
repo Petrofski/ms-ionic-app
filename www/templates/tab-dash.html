@@ -1,5 +1,18 @@
 <ion-view view-title="Dashboard">
   <ion-content class="padding">
-      tab dash
+    <div class="padding-top">
+      <p>Activity (last 5 minutes)</p>
+      <canvas id="bar" class="chart chart-line" data="graph.data" labels="graph.labels" series='graph.series' height="240"></canvas>
+    </div>
+    <div class="row padding-top">
+        <div class="col-50 padding-left">
+          <i class="ion-thermometer big-icon"></i>
+          <span class="data-item padding-left">{{data[0].temperature.avg | number: 1}}</span>
+        </div>
+        <div class="col-50 padding-left">
+          <i class="ion-heart big-icon"></i>
+          <span class="data-item padding-left">{{data[0].heartrate.avg | number: 0}}</span>
+        </div>
+    </div>
   </ion-content>
 </ion-view>

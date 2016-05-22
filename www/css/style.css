@@ -19,3 +19,11 @@
 	margin-left: 10px;
 	margin-right: 10px;
 }
+.big-icon {
+  font-size: 60px;
+  color: #0099cc;
+}
+.data-item {
+  font-family: Helvetica;
+  font-size: 55px;
+}

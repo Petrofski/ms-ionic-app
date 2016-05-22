@@ -2,9 +2,6 @@ angular.module('starter.services', [])
 
 .factory('VasService', function($http, api, TokenService) {
   // Might use a resource here that returns a JSON array
-
-
-
   return {
     postVasMessage: function(vasMessage) {
       var id = TokenService.get('user-id');
@@ -20,6 +17,17 @@ angular.module('starter.services', [])
   };
 })
 
+.factory('DataService', function($http, TokenService, api) {
+  var id = TokenService.get('user-id');
+  var token = TokenService.get('user-token');
+  var route = "http://sensing-ms-api.mybluemix.net/api/Patients/" + id + "/sensorData?filter[order]=datetime%20DESC&filter[limit]=5&access_token=" + token;
+
+  return {
+    getDashboardData: function(){
+      return $http.get(route).success(function(res, data){ console.log('Response: ', data)});
+    }
+  };
+})
 
 .factory('LoginService', function($http, TokenService) {
   return {
@@ -102,3 +110,7 @@ angular.module('starter.services', [])
         }
     }
 })
+
+
+
+
