@@ -61,7 +61,7 @@ angular.module('starter.controllers', [])
     $scope.countdown = countdown;
 
     $scope.lastVasExpired = true;
-    if(lastVasScore){ $scope.lastVasExists = true }
+    if(lastVasScore != undefined){ $scope.lastVasExists = true }
 
   });
 
@@ -80,15 +80,15 @@ angular.module('starter.controllers', [])
 		    	{
 		    		text: 'Cancel',
 		      		onTap: function(e) {
-		      			
+
 		      		}
 		      	},
 		      	{
 			        text: '<b>Send VAS Score</b>',
 			        type: 'button-positive',
 			        onTap: function(e) {
-		        		$scope.lastVasExpired = false;
-					    navigator.geolocation.getCurrentPosition(
+                $scope.lastVasExpired = false;
+					      navigator.geolocation.getCurrentPosition(
 					        function(position) {
 					            $scope.vasMessage.vasScore = score;
 					            $scope.vasMessage.datetime = Date.now();
@@ -100,14 +100,14 @@ angular.module('starter.controllers', [])
 					            TokenService.set('lastVasDate', $scope.vasMessage.datetime);
 					            TokenService.set('lastVasScore', $scope.vasMessage.vasScore);
 
-					            VasService.postVasMessage($scope.vasMessage).then(function successCallback(){
-					              $scope.lastVasExists = true;
-					              $scope.lastVasScore = $scope.vasMessage.vasScore;
-					              $scope.lastVasDate = $scope.vasMessage.datetime;
-					              $timeout(function(){ $scope.lastVasExpired = false;}, DISABLE_TIMER * 1000);
-					            }, function errorCallback(){
-					              console.log("Error")
-					            });
+                      VasService.postVasMessage($scope.vasMessage).then(function successCallback(){
+                        $scope.lastVasExists = true;
+                        $scope.lastVasScore = $scope.vasMessage.vasScore;
+                        $scope.lastVasDate = $scope.vasMessage.datetime;
+                        $timeout(function(){ $scope.lastVasExpired = true }, DISABLE_TIMER * 1000);
+                      }, function errorCallback(){
+                        console.log("Error")
+                      });
 
 					        },
 					        function(error) {
