@@ -13,3 +13,11 @@
 .button-logout {
 	margin: 10 10;
 }
+.big-icon {
+  font-size: 60px;
+  color: #0099cc;
+}
+.data-item {
+  font-family: Helvetica;
+  font-size: 55px;
+}

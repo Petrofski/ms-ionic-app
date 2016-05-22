@@ -27,7 +27,19 @@ angular.module('starter.controllers', [])
 	}
 })
 
-.controller('DashCtrl', function($scope) {
+.controller('DashCtrl', function($scope, DataService) {
+    $scope.graph = {};
+    DataService.getDashboardData().then(function successCallback(data){
+      $scope.data = data.data;
+      var activityPoint = data.data.map(function(item){
+        return item.activity.score;
+      }).reverse();
+      $scope.graph.data = [activityPoint];
+    }, function errorCallback(err){
+      console.log(err)
+    })
+
+    $scope.graph.labels = ['t-4', 't-3', 't-2', 't-1', 't'];
 
 })
 
