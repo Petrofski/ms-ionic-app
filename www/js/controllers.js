@@ -72,7 +72,7 @@ angular.module('starter.controllers', [])
   		desc: ""
   	};
   	$ionicPopup.show({
-		    template: '<input type="text" placeholder="desc" ng-model="vasMessage.comment.desc">',
+		    template: '<input type="text" placeholder="Comment" ng-model="vasMessage.comment.desc">',
 		    title: 'Comment',
 		    subTitle: 'Enter a comment below',
 		    scope: $scope,
