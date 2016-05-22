@@ -27,3 +27,11 @@
   font-family: Helvetica;
   font-size: 55px;
 }
+
+.vasScoreImage {
+  width: 100%;
+}
+
+button:disabled {
+
+}

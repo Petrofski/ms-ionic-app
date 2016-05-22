@@ -73,7 +73,7 @@ angular.module('starter.controllers', [])
 
 
   $scope.postVas = function(score) {
-      $scope.lastVasExpired = function(){return true};
+      $scope.lastVasExpired = true;
       navigator.geolocation.getCurrentPosition(
           function(position) {
 
