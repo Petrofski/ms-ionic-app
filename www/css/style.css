@@ -28,6 +28,7 @@
   font-size: 55px;
 }
 
+<<<<<<< HEAD
 .vasScoreImage {
   width: 100%;
 }
@@ -35,3 +36,8 @@
 button:disabled {
 
 }
+=======
+.timestamp {
+	text-align: center;
+}
+>>>>>>> 133ebb4d36789ad165d6a38affcdb37326c57ec8
