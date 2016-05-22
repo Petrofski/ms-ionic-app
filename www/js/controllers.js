@@ -60,15 +60,9 @@ angular.module('starter.controllers', [])
     var countdown = Math.floor(Date.now() / 1000 ) - DISABLE_TIMER;
     $scope.countdown = countdown;
 
-    if(lastVasDate == undefined) {
-      $scope.lastVasExpired = false;
-    } else if ( Number(lastVasDate) > countdown ) {
-      $scope.lastVasExpired = true;
-    } else {
-      $scope.lastVasExpired = false;
-    }
+    $scope.lastVasExpired = true;
+    if(lastVasScore){ $scope.lastVasExists = true }
 
-    $scope.lastVasExpired = function(){ if(lastVasDate != undefined) return true;}
   });
 
 
@@ -164,7 +158,7 @@ angular.module('starter.controllers', [])
 	};
 
 	$scope.addMedication = function() {
-		
+
 		$scope.new = { };
 
 		var medicationPopup = $ionicPopup.show({
@@ -204,7 +198,7 @@ angular.module('starter.controllers', [])
 	$scope.rmi = RmiService.get();
 
 	$scope.addRmi = function() {
-		
+
 		$scope.new = { date: new Date(Date.now()) };
 
 		var rmiPopup = $ionicPopup.show({

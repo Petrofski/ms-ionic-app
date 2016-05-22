@@ -32,9 +32,13 @@
   width: 100%;
 }
 
-button:disabled {
-
-}
 .timestamp {
 	text-align: center;
+}
+.bigVasFace {
+  height: 20%;
+}
+
+.centered {
+  text-align: center;
 }
