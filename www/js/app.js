@@ -20,39 +20,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       first.setMinutes(0);
       first.setSeconds(0);
 
-      var second = new Date();
-      second.setHours(13);
-      second.setMinutes(0);
-      second.setSeconds(0);
-
-      var third = new Date();
-      third.setHours(18);
-      third.setMinutes(0);
-      third.setSeconds(0);
-
-      // 3 Daily Notifications
+      // Daily Notifications
       window.plugin.notification.local.add({
           id:      1,
           title:   'Sensing MS',
           message: 'Enter your daily score please',
           repeat:  'daily',
           date:    first
-      });
-
-      window.plugin.notification.local.add({
-          id:      2,
-          title:   'Sensing MS',
-          message: 'Enter your daily score please',
-          repeat:  'daily',
-          date:    second
-      });
-
-      window.plugin.notification.local.add({
-          id:      3,
-          title:   'Sensing MS',
-          message: 'Enter your daily score please',
-          repeat:  'daily',
-          date:    third
       });
 
     }
@@ -66,7 +40,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 .value("api", "http://sensing-ms-api.mybluemix.net/api/")
 
-.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicConfigProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -124,7 +98,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 
-
+  $ionicConfigProvider.tabs.position('bottom');
 
 });
 

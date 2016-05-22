@@ -1,7 +1,7 @@
-<ion-view view-title="Vas">
+<ion-view view-title="Measure">
     <ion-content class="padding">
       <div ng-show="lastVasExpired">
-        <p>How do you experience your pain level at this moment?</p>
+        <p>How do you experience your MS today?</p>
         <div class="button-bar bar-assertive" >
           <a ng-click="postVas(1)" ng-class="{'disabled': lastVasExpired }"><img src="img/1.png" class="vasScoreImage" alt=""></a>
           <a ng-click="postVas(2)" ng-class="{'disabled': lastVasExpired }"><img src="img/2.png" class="vasScoreImage" alt=""></a>
@@ -22,7 +22,7 @@
           <img ng-src="img/{{lastVasScore}}.png" class="bigVasFace" alt="">
         </div>
         <div class="item item-body timestamp">
-          <p>Last VAS timestamp: {{ lastVasDate || 'No given time' | date:'yyyy-MM-dd HH:mm' }}</p>
+          <p>Last input on: {{ lastVasDate || 'No given time' | date:'yyyy-MM-dd HH:mm' }}</p>
         </div>
       </div>
 
