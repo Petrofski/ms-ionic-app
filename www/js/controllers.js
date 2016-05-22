@@ -78,7 +78,7 @@ angular.module('starter.controllers', [])
           function(position) {
 
             var vasMessage = {  vasScore: score,
-                                datetime: Math.floor(position.timestamp / 1000),
+                                datetime: Date.now(),
                                 geopoint: {
                                     lat: position.coords.latitude,
                                     lng: position.coords.longitude
