@@ -61,7 +61,7 @@ angular.module('starter.controllers', [])
     $scope.countdown = countdown;
 
     $scope.lastVasExpired = true;
-    if(lastVasScore){ $scope.lastVasExists = true }
+    if(lastVasScore != undefined){ $scope.lastVasExists = true }
 
   });
 
@@ -86,7 +86,7 @@ angular.module('starter.controllers', [])
               $scope.lastVasExists = true;
               $scope.lastVasScore = vasMessage.vasScore;
               $scope.lastVasDate = vasMessage.datetime;
-              $timeout(function(){ $scope.lastVasExpired = false}, DISABLE_TIMER * 1000);
+              $timeout(function(){ $scope.lastVasExpired = true }, DISABLE_TIMER * 1000);
             }, function errorCallback(){
               console.log("Error")
             });
