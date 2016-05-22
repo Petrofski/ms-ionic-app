@@ -55,24 +55,28 @@ angular.module('starter.services', [])
   };
 })
 
-.factory('MedicationService', function() {
+.factory('MedicationService', function($http, api, TokenService) {
     var medication = [];
-            var dat = new Date();
-            dat.setDate(25);
-            dat.setMonth(2);
-            dat.setYear(2015);
-            //dat.setYear();
-            var dat2 = new Date();
-            dat2.setMonth(5)
-            var r1 = { name: "Medication 1", date: dat }
-            var r2 = { name: "Medication 2", date: dat2 }
+            var r1 = { name: "Dafalgan", dose: "2 x 500mg per dag" }
+            var r2 = { name: "Fampridine", dose: "3 x 1 per dag" }
             medication.push(r1, r2);
+    var id = TokenService.get('user-id');
+    var token = TokenService.get('user-token');
+    var route = api + "Patients/" + id + "/drugs?access_token=" + token;
     return {
         get: function() {
             return medication;
         },
         add: function(med) {
             medication.push(med);
+        },
+        post: function(med) {
+            return $http.post(route, med)
+            .success(function(response, data) {
+              medication.push(med)
+            }).error(function(response, error) {
+              console.log('something went wrong: ', error);
+            });
         }
     }
 })

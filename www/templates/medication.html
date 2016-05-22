@@ -6,7 +6,8 @@
   	<ion-content>
   		<ion-list>
 		  <ion-item ng-repeat="med in medication">
-		    <p><b>{{ med.name }}</b>, Since: {{ med.date | date : "dd/MM/yyyy" }}</p>
+		    <p><b>{{ med.name }}</b></p>
+		    <p><b>Dose: </b>{{ med.dose }}</p>
 		  </ion-item>
 		</ion-list>
 		<div class="button-medication">

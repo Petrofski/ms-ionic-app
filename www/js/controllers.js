@@ -87,7 +87,7 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('AccountCtrl', function($scope, $state, $ionicModal, $ionicPopup, TokenService, MedicationService, RmiService) {
+.controller('AccountCtrl', function($scope, $state, $ionicModal, $ionicPopup, $ionicLoading, TokenService, MedicationService, RmiService) {
 	$scope.logout = function() {
 		TokenService.remove('user-id');
 		TokenService.remove('user-token');
@@ -130,13 +130,28 @@ angular.module('starter.controllers', [])
 
 	$scope.medication = MedicationService.get();
 
+	$scope.showLoader = function() {
+	    $ionicLoading.show({
+	      template: 'Adding medication',
+	      duration: 1000
+	    }).then(function(){
+	       console.log("The loading indicator is now displayed");
+	    });
+	};
+	$scope.hideLoader = function(){
+	    $ionicLoading.hide().then(function(){
+	       console.log("The loading indicator is now hidden");
+	    });
+	};
+
 	$scope.addMedication = function() {
-		$scope.new = {}
+		
+		$scope.new = { };
 
 		var medicationPopup = $ionicPopup.show({
-		    template: '<input type="text" placeholder="name" ng-model="new.name"><input type="date" placeholder="date" ng-model="new.date"></input>',
+		    template: '<input type="text" placeholder="Name" ng-model="new.name" style="margin-bottom: 5px;"><input type="text" placeholder="Dose" ng-model="new.dose"></input>',
 		    title: 'Enter new medication',
-		    subTitle: 'Enter name and date',
+		    subTitle: 'Enter name and dose',
 		    scope: $scope,
 		    buttons: [
 		      { text: 'Cancel',
@@ -148,13 +163,19 @@ angular.module('starter.controllers', [])
 		        text: '<b>Save</b>',
 		        type: 'button-positive',
 		        onTap: function(e) {
-		          if (!$scope.new.name || !$scope.new.date) {
-		            //don't allow the user to close unless he enters wifi password
-		            e.preventDefault();
-		          } else {
-		          	console.log($scope.new);
-		            MedicationService.add($scope.new);
-		          }
+		        	$scope.showLoader();
+		        	if (!$scope.new.name) {
+		            	//don't allow the user to close unless he enters wifi password
+		            	e.preventDefault();
+		        	} else {
+		          		if(!$scope.new.dose) {
+		          			$scope.new.dose = "N/A";
+		          		}
+		          		console.log($scope.new);
+		            	MedicationService.post($scope.new).then(function success() {
+		            	});
+		          	}
+		          	$scope.hideLoader();
 		        }
 		      }
 		    ]
@@ -164,10 +185,11 @@ angular.module('starter.controllers', [])
 	$scope.rmi = RmiService.get();
 
 	$scope.addRmi = function() {
-		$scope.new = {}
+		
+		$scope.new = { date: new Date(Date.now()) };
 
 		var rmiPopup = $ionicPopup.show({
-		    template: '<input type="text" placeholder="info" ng-model="new.info"><input type="date" placeholder="date" ng-model="new.date"></input>',
+		    template: '<input type="text" placeholder="info" ng-model="new.info" style="margin-bottom: 5px;"><input type="date" placeholder="date" ng-model="new.date"></input>',
 		    title: 'Enter new Rmi',
 		    subTitle: 'Enter date and info',
 		    scope: $scope,
