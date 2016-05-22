@@ -45,7 +45,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('VasCtrl', function($scope, VasService, TokenService, $state, $timeout) {
+.controller('VasCtrl', function($scope, VasService, TokenService, $state, $timeout, $ionicPopup) {
 
   var posOptions = {timeout: 10000, enableHighAccuracy: false};
   var DISABLE_TIMER = 10;
@@ -67,37 +67,58 @@ angular.module('starter.controllers', [])
 
 
   $scope.postVas = function(score) {
-      $scope.lastVasExpired = false;
-      navigator.geolocation.getCurrentPosition(
-          function(position) {
+  	$scope.vasMessage = {}
+  	$scope.vasMessage.comment = {
+  		desc: ""
+  	};
+  	$ionicPopup.show({
+		    template: '<input type="text" placeholder="desc" ng-model="vasMessage.comment.desc">',
+		    title: 'Comment',
+		    subTitle: 'Enter a comment below',
+		    scope: $scope,
+		    buttons: [
+		    	{
+		    		text: 'Cancel',
+		      		onTap: function(e) {
 
-            var vasMessage = {  vasScore: score,
-                                datetime: Date.now(),
-                                geopoint: {
-                                    lat: position.coords.latitude,
-                                    lng: position.coords.longitude
-                                }
-            }
+		      		}
+		      	},
+		      	{
+			        text: '<b>Send VAS Score</b>',
+			        type: 'button-positive',
+			        onTap: function(e) {
+                $scope.lastVasExpired = false;
+					      navigator.geolocation.getCurrentPosition(
+					        function(position) {
+					            $scope.vasMessage.vasScore = score;
+					            $scope.vasMessage.datetime = Date.now();
+					            $scope.vasMessage.geopoint = {
+					                                    lat: position.coords.latitude,
+					                                    lng: position.coords.longitude
+					                                }
 
-            TokenService.set('lastVasDate', vasMessage.datetime);
-            TokenService.set('lastVasScore', vasMessage.vasScore);
+					            TokenService.set('lastVasDate', $scope.vasMessage.datetime);
+					            TokenService.set('lastVasScore', $scope.vasMessage.vasScore);
 
-            VasService.postVasMessage(vasMessage).then(function successCallback(){
-              $scope.lastVasExists = true;
-              $scope.lastVasScore = vasMessage.vasScore;
-              $scope.lastVasDate = vasMessage.datetime;
-              $timeout(function(){ $scope.lastVasExpired = true }, DISABLE_TIMER * 1000);
-            }, function errorCallback(){
-              console.log("Error")
-            });
+                      VasService.postVasMessage($scope.vasMessage).then(function successCallback(){
+                        $scope.lastVasExists = true;
+                        $scope.lastVasScore = $scope.vasMessage.vasScore;
+                        $scope.lastVasDate = $scope.vasMessage.datetime;
+                        $timeout(function(){ $scope.lastVasExpired = true }, DISABLE_TIMER * 1000);
+                      }, function errorCallback(){
+                        console.log("Error")
+                      });
 
-          },
-          function(error) {
-            console.log("error location")
-            $scope.lastVasExpired = true;
-          },
-          {enableHighAccuracy: false})
-
+					        },
+					        function(error) {
+					            console.log("error location")
+					            $scope.lastVasExpired = true;
+					        },
+					        {enableHighAccuracy: false})
+		          	}
+		        }
+		    ]
+		});
   }
 
 })
