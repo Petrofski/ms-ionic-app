@@ -1,0 +1,17 @@
+<ion-modal-view>
+	<ion-header-bar>
+	  	<h1 class="title">RMI</h1>
+        <div class="button" style="background-color: white;" ng-click="closeRmi()"><span class="icon ion-close"></span></div>
+	</ion-header-bar>
+  	<ion-content>
+  		<ion-list>
+		  <ion-item ng-repeat="item in rmi">
+		    <p><b>{{ item.date | date : "dd/MM/yyyy" }}: </b></p>
+		    <p>additional info: {{ item.info || 'No info available' }}</p>
+		  </ion-item>
+		</ion-list>
+		<div class="button-medication">
+  			<button class="button button-full button-positive" ng-click="addRmi()">Add RMI</button>
+  		</div>
+  	</ion-content>
+</ion-modal-view>

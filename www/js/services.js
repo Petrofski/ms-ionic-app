@@ -61,7 +61,51 @@ angular.module('starter.services', [])
     set: function(key, value) { $window.localStorage[key] = value; },
     remove: function(key) { $window.localStorage.removeItem(key); }
   };
-});
+})
+
+.factory('MedicationService', function() {
+    var medication = [];
+            var dat = new Date();
+            dat.setDate(25);
+            dat.setMonth(2);
+            dat.setYear(2015);
+            //dat.setYear();
+            var dat2 = new Date();
+            dat2.setMonth(5)
+            var r1 = { name: "Medication 1", date: dat }
+            var r2 = { name: "Medication 2", date: dat2 }
+            medication.push(r1, r2);
+    return {
+        get: function() {
+            return medication;
+        },
+        add: function(med) {
+            medication.push(med);
+        }
+    }
+})
+
+.factory('RmiService', function() {
+    var rmi = [];
+            var dat = new Date();
+            dat.setDate(25);
+            dat.setMonth(2);
+            dat.setYear(2015);
+            //dat.setYear();
+            var dat2 = new Date();
+            dat2.setMonth(5)
+            var r1 = { info: "Info 1", date: dat }
+            var r2 = { info: "Info 2", date: dat2 }
+            rmi.push(r1, r2);
+    return {
+        get: function() {
+            return rmi;
+        },
+        add: function(r) {
+            rmi.push(r);
+        }
+    }
+})
 
 
 

@@ -29,14 +29,16 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope, DataService) {
     $scope.graph = {};
-    DataService.getDashboardData().then(function successCallback(data){
-      $scope.data = data.data;
-      var activityPoint = data.data.map(function(item){
-        return item.activity.score;
-      }).reverse();
-      $scope.graph.data = [activityPoint];
-    }, function errorCallback(err){
-      console.log(err)
+    $scope.$on('$ionicView.enter', function () {
+      DataService.getDashboardData().then(function successCallback(data){
+        $scope.data = data.data;
+        var activityPoint = data.data.map(function(item){
+          return item.activity.score;
+        }).reverse();
+        $scope.graph.data = [activityPoint];
+      }, function errorCallback(err){
+        console.log(err)
+      })
     })
 
     $scope.graph.labels = ['t-4', 't-3', 't-2', 't-1', 't'];
@@ -104,10 +106,122 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('AccountCtrl', function($scope, $state, TokenService) {
+.controller('AccountCtrl', function($scope, $state, $ionicModal, $ionicPopup, TokenService, MedicationService, RmiService) {
 	$scope.logout = function() {
 		TokenService.remove('user-id');
 		TokenService.remove('user-token');
 		$state.go('login');
 	}
+
+	$scope.modals = {};
+
+	$ionicModal.fromTemplateUrl('templates/medication.html', {
+	    id: 'medication',
+	    scope: $scope,
+	    animation: 'slide-in-up'
+	}).then(function(modal) {
+		$scope.modals.medication = modal;
+	});
+
+	$ionicModal.fromTemplateUrl('templates/rmi.html', {
+	    id: 'rmi',
+	    scope: $scope,
+	    animation: 'slide-in-up'
+	}).then(function(modal) {
+		$scope.modals.rmi = modal;
+	});
+
+	$scope.openMedication = function() {
+		$scope.modals['medication'].show();
+	}
+
+	$scope.closeMedication = function(id) {
+		$scope.modals['medication'].hide();
+	};
+
+	$scope.openRmi = function() {
+		$scope.modals['rmi'].show();
+	}
+
+	$scope.closeRmi = function() {
+		$scope.modals['rmi'].hide();
+	}
+
+	$scope.medication = MedicationService.get();
+
+	$scope.addMedication = function() {
+		$scope.new = {}
+
+		var medicationPopup = $ionicPopup.show({
+		    template: '<input type="text" placeholder="name" ng-model="new.name"><input type="date" placeholder="date" ng-model="new.date"></input>',
+		    title: 'Enter new medication',
+		    subTitle: 'Enter name and date',
+		    scope: $scope,
+		    buttons: [
+		      { text: 'Cancel',
+		      	onTap: function(e) {
+		      		$scope.new = {}
+		      	}
+		      },
+		      {
+		        text: '<b>Save</b>',
+		        type: 'button-positive',
+		        onTap: function(e) {
+		          if (!$scope.new.name || !$scope.new.date) {
+		            //don't allow the user to close unless he enters wifi password
+		            e.preventDefault();
+		          } else {
+		          	console.log($scope.new);
+		            MedicationService.add($scope.new);
+		          }
+		        }
+		      }
+		    ]
+		});
+	}
+
+	$scope.rmi = RmiService.get();
+
+	$scope.addRmi = function() {
+		$scope.new = {}
+
+		var rmiPopup = $ionicPopup.show({
+		    template: '<input type="text" placeholder="info" ng-model="new.info"><input type="date" placeholder="date" ng-model="new.date"></input>',
+		    title: 'Enter new Rmi',
+		    subTitle: 'Enter date and info',
+		    scope: $scope,
+		    buttons: [
+		      { text: 'Cancel',
+		      	onTap: function(e) {
+		      		$scope.new = {}
+		      	}
+		      },
+		      {
+		        text: '<b>Save</b>',
+		        type: 'button-positive',
+		        onTap: function(e) {
+		          if (!$scope.new.date) {
+		            //don't allow the user to close unless he enters wifi password
+		            e.preventDefault();
+		          } else {
+		          	if(!$scope.new.info) {
+		          		$scope.new.info = "";
+		          	}
+		          	console.log($scope.new);
+		            RmiService.add($scope.new);
+		          }
+		        }
+		      }
+		    ]
+		});
+	}
+
 });
+
+
+
+
+
+
+
+
