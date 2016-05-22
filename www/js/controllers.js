@@ -92,7 +92,10 @@ angular.module('starter.controllers', [])
             });
 
           },
-          function(error) {console.log("error location")},
+          function(error) {
+            console.log("error location")
+            $scope.lastVasExpired = true;
+          },
           {enableHighAccuracy: false})
 
   }
@@ -104,6 +107,8 @@ angular.module('starter.controllers', [])
 	$scope.logout = function() {
 		TokenService.remove('user-id');
 		TokenService.remove('user-token');
+		TokenService.remove('lastVasScore');
+		TokenService.remove('lastVasDate');
 		$state.go('login');
 	}
 
