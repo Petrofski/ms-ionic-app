@@ -65,8 +65,8 @@ angular.module('starter.services', [])
 
 .factory('MedicationService', function($http, api, TokenService) {
     var medication = [];
-            var r1 = { name: "Dafalgan", dose: "2 x 500mg per dag" }
-            var r2 = { name: "Fampridine", dose: "3 x 1 per dag" }
+            var r1 = { name: "Betaferon", dose: "1 injection / month" }
+            var r2 = { name: "Copaxone", dose: "3 injections / year" }
             medication.push(r1, r2);
     var id = TokenService.get('user-id');
     var token = TokenService.get('user-token');
