@@ -11,7 +11,7 @@
         </div>
       </div>
       <div ng-show="!lastVasExpired">
-        <p class="centered">Thank you for posting your score</p>
+        <p class="centered bold">Thank you for posting your score</p>
 
       </div>
       <div class="list card" ng-show="lastVasExists">
@@ -22,7 +22,7 @@
           <img ng-src="img/{{lastVasScore}}.png" class="bigVasFace" alt="">
         </div>
         <div class="item item-body timestamp">
-          <p>Last input on: {{ lastVasDate || 'No given time' | date:'yyyy-MM-dd HH:mm' }}</p>
+          Last input on: {{ lastVasDate || 'No given time' | date:'yyyy-MM-dd HH:mm' }}
         </div>
       </div>
 
